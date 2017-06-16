@@ -16,11 +16,13 @@ c)	根据魔窗后台配置的mlink key注册从点击短链进入App的回调�
 d)	如果点击的短链在源码中没有匹配mlink key注册的回调，则会调用默认回调；
 4，页面跳转
 在魔窗后台配置好跳转路径，路径配置如下：
+![image](https://github.com/FKLam/ProjectRepost/blob/master/Imgs/魔窗-01.png)
 
 1)	服务名称是用于标识这条短链的标志
 2)	服务key是用于标识从H5页面进入App内所要到达目的路径，App中用于注册回调；
 3)	URI是H5页面传递参数到App的格式，开始时应协商好；
 4)	App中在对应注册的服务key的回调中可以获取到从H5页面传递过来的参数，根据实际情况做页面的跳转：
+![image](https://github.com/FKLam/ProjectRepost/blob/master/Imgs/魔窗-02.png)
 a)	已安装App，获取到参数，在App启动完成并进入主页面后执行相应页面跳转；
 b)	未安装App，从短链进入到下载完App，启动App，获取到参数并把参数缓存，等待App进入到主页面才执行相应页面跳转，而且将缓存参数清除；
 5，魔窗位使用
