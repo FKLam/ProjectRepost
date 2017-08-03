@@ -1,0 +1,18 @@
+@property
+...
+#pragma mark - Life cycle
+生命周期，类似addSubview和Notification的监听和销毁都放在这里
+
+#pragma mark - Interface
+接口
+
+#pragma mark - Event response
+
+#pragma mark - Private method
+如果是ViewController，这个地方就是瘦身的关键，业务和逻辑功能相关的就放到ViewModel里。
+
+#pragma mark - Delegate
+代理
+
+#pragma mark - Getters and Setters
+建议所有的Property都设置，这样修改配置会比较方便，看起来不会很混乱
