@@ -20,6 +20,7 @@ Router/Wireframe
 
 下面是 VIPER 栈的示意图，描述了我们理解的 VIPER，每一个盒子表示为分隔的 Class，每一条线表示为在两个独立 Class 实例中的引用：
 ![image](https://github.com/FKLam/ProjectRepost/blob/master/Article/Viper_01.png)
+
 可以把每一个 Class 当作在可装配生产线上的一位工人。每一个 Classe 只知道怎样执行有限的行为集合，同时依赖其它 Classes 的帮助来掌控完成当前任务。
 
 View/User Interface
