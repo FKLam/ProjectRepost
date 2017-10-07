@@ -1,0 +1,67 @@
+VIPER Architecture for iOS Applications
+
+0x01 在开发 iOS 应用时需要注意的关键点：
+易于更新迭代
+代码间可以友好地协作
+以某种关系分隔代码
+方便测试
+经过查阅资料显示，VIPER 架构较为容易地解决以上几个问题。
+
+0x02 VIPER 是什么，我们又怎么使用它呢？
+为了更好地了解 VIPER，我们需要忘记 MVC 的所有知识，想象一下我们是从零开始，对于开发 iOS  应用是一无所知，没有任何工具，没有 MVC。
+
+VIPER 主要根据以下几个规则划分应用的关系：
+View/User Interface
+Interactor
+Presenter/Event Handler
+Entity
+Router/Wireframe
+在特殊情况下，我们会额外的规则，添加 DataManager 和 ServiceLayer。
+
+下面是 VIPER 栈的示意图，描述了我们理解的 VIPER，每一个盒子表示为分隔的 Class，每一条线表示为在两个独立 Class 实例中的引用：
+![image](https://github.com/FKLam/ProjectRepost/blob/master/Article/Viper_01.png)
+
+可以把每一个 Class 当作在可装配生产线上的一位工人。每一个 Classe 只知道怎样执行有限的行为集合，同时依赖其它 Classes 的帮助来掌控完成当前任务。
+
+View/User Interface
+View 责任：
+向用户展示信息
+监听用户的交互
+通过 Presenter 通知 View 要现实什么内容，当事件将要发生时 View 会响应 Presenter。如果 View 要向用户显示错误信息，Presenter 或许会调用如下方法：
+[self.myViewObject showErrorWithMessage:@“Something went wrong”];
+
+响应用户交互：
+例如用户点登录按钮事件，View 会在 Presenter 中调用如下方法：
+[self.presenter didRequestLoginWithUserName:name password:pwd];
+Presenter/Event handler
+Presenter 责任：
+通知 View 显示的内容
+掌控事件
+通过 View 通知 Presenter 有登录事件，Presenter 询问 Interactor ，试图执行 Interactor 中已有的方法：
+[self.interactor loginWithUserName:name password:pwd];
+Interactor events：Presenter 总能从 Interactor 中获取到事件，这将会在 Interactor 完成执行某项任务的时候发生，然后用户能看到响应的结果：
+[self.presenter loginFaileWithError:someError];
+Interact
+Interactor 责任：
+执行业务逻辑
+我们可以知道 Interactor 在 DataManager 中调用必要的方法，然后把结果返回给 Presenter：
+Data Manager
+DataManager 责任：
+获取数据
+存储数据（可选）
+DataManager 指定 Service 去获取需要信息，一旦获取到消息，将会把这消息转发到 Interactor。
+Service
+Service 责任：
+向服务器执行网络请求获取数据
+
+Entity
+
+Entity 任务：
+展现的数据
+Entities 是最直接的、是我们期望的。DataManager 返回 Entity 给 Interactor，接着把它返回给 Presenter，当要使用这个 Entity 时就会通知 View 显示这些内容。
+
+Router/Wireframe
+
+Wireframe 责任：
+初始化 Classes
+在App中掌控路由到其它 Views
